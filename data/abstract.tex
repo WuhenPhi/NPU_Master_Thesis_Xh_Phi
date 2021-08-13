@@ -1,0 +1,44 @@
+% 中文摘要
+\begin{abstract}
+	
+	声学场景的双耳渲染旨在给听众提供身临其境的体验，是虚拟现实、增强现实、沉浸式多媒体产品、虚拟声学等领域的重要研究课题。最近，基于球谐分解的双耳渲染算法得到了广泛关注。该算法对声场和头相关传递函数进行球谐函数展开，并且直接在球谐域进行渲染，避免了虚拟扬声器数目和位置对听感的影响。但是此类算法存在声场和头相关传递函数不匹配的问题，例如通常录音设备的尺寸小于人头尺寸，声场分解阶次（通常小于~5~阶）远小于头相关传递函数的分解阶次（34~阶）。这些不匹配问题导致定位线索的损伤、空间感的降低和音色的改变。
+	
+	本论文主要针对以上问题，从录制声场和头相关传递函数两方面出发，对原始算法加以改进。主要的研究内容包括以下四个方面：
+	
+	1. 深入研究了基于球谐分解的双耳渲染算法及其存在的问题。对声场和头相关传递函数的球谐分解及系数获取方法进行研究，针对空心球和刚性球展开讨论，给出了正确获取声场系数所需的麦克风数目，以及两种球阵所获取的声场系数的区别。
+	
+	2. 研究了头相关传递函数的预处理方法，并通过实验验证了该方法的有效性。该方法采用与频率相关的相位对准，保留低频相位信息的同时对高频的相位加以修正。和直接使用最小二乘方法求解头相关传递函数的球谐分量相比，该预处理方法一方面可以准确地表示头相关传递函数的幅度谱，另一方面有效降低了头相关传递函数的分解阶次。
+	
+	3. 提出了一种声场扩阶理论和一种新的双耳渲染算法。该理论对麦克风阵列的采集声场进行分析，将入射声场分解为直达波和混响场的叠加。根据直达波入射方向进行空间加窗处理，可以实现声场分量的阶次提升，同时扩大控制区域的半径。并且本研究将声场扩阶理论、头相关传递函数预处理和基于球谐分解的双耳渲染算法相结合，实现了基于声场扩阶的双耳渲染算法。
+	
+	4. 在消声室和混响环境下，从双耳时间差、双耳声级差和双耳听觉互相关系数这三个评价指标出发，将本文所提出的算法与对标算法进行对比和分析，验证本算法的有效性。实验结果表明，在不同的混响情况下、声源位于不同方向时，本文所提出的双耳渲染算法均能达到较好的效果，优于现有算法。并且对空心球和刚性球在不同双耳渲染算法下的性能进行对比，验证了刚性球的优越性。
+	
+	%\lipsum[2-3]
+	\begin{keywords}
+		双耳渲染、头相关传递函数、空间音频、球谐分解、声场扩阶
+	\end{keywords}
+\end{abstract}
+
+% 英文摘要
+\begin{Abstract}
+	
+	Binaural rendering of acoustic scenes aims to provide the audience with an immersive experience. It is an important research topic in the fields of virtual reality, augmented reality, immersive multimedia products, and virtual acoustics. Recently, binaural rendering algorithms based on spherical harmonic decomposition have received much attention. This algorithm performs spherical harmonic expansion of sound field and head-related transfer function(~HRTF~), and renders directly in spherical harmonic domain, avoiding the influence of the number and position of virtual speakers on hearing sense.
+	However, there are some mismatches between the sound field and the head-related transfer function in this kind of algorithm. For example, the size of the recording equipment is usually smaller than the head size, and the decomposition order of the sound field (usually less than ~5~ order) is much smaller than the decomposition order of the head-related transfer function (~34~ order). These mismatches lead to impairments of localization cues, loss of spaciousness, and changes in timbre.
+	
+	Aiming at the above problems, this paper improves the original algorithm from two aspects, sound field and head-related transfer function. The main research contents include the following four aspects:
+	
+	1. The binaural rendering algorithm based on spherical harmonic decomposition and its problems are studied in detail. The spherical harmonic decomposition and coefficient calculation method of sound field and HRTF are studied, and the number of microphones which is needed to acquire sound field coefficient correctly. The difference of sound field coefficient obtained by open and rigid spherical array are discussed.
+	
+	2. The preprocessing method of head-related transfer function is studied and the effectiveness of this method is verified by experiments. In this method, the frequency-dependent phase alignment is adopted to retain the phase information of low frequency and modify the phase information of high frequency. Compared with the least square method, this method can not only accurately represent the magnitude spectrum of the head-correlation transfer function, but also effectively reduce the decomposition order of the head-correlation transfer function.
+	
+	3. A new theory for enlarging the order of sound field and a new binaural rendering algorithm are proposed. In this theory, the incident sound field is decomposed into the superposition of direct component and diffuse field.
+	According to the direction of direct component, spatial masking can improve the order of the sound field and enlarge the radius of the control area. In addition,  a new binaural rendering algorithm is realised by combing combines this theory , the frequency-dependent phase alignment preprocessing method of the head-correlation transfer function and the binaural rendering algorithm based on spherical harmonic decomposition.
+	
+	
+	4. In anechoic chamber and reverberation environment, the algorithm proposed in this paper is compared and analyzed from three evaluation indexes , interaural time difference , interaural level difference and interaural cross-correlation. The experimental results show that the binaural rendering algorithm proposed in this paper can achieve better results under different reverberation environments and sound source directions, which is superior to the existing algorithms. The performance of open and rigid spherical array under different binaural rendering algorithms is compared to verify the superiority of rigid ball.
+	
+	
+	\begin{Keywords}
+		Binaural rendering, head-related transfer function, spatial audio, spherical harmonic decomposition, sound field amplification
+	\end{Keywords}
+\end{Abstract}
