@@ -1,0 +1,27 @@
+\documentclass[twoside,cjk,UTF8]{nputhesis}
+
+\begin{document}
+\include{data/cover}
+
+\frontmatter
+\include{data/abstract}
+\tableofcontents
+
+\mainmatter  % 开始各章节
+%如果此处include无法成功，将子tex文件的Document的Document setting的 CPconvert的Document Format更改为UTF-8
+\include{data/Chapter1}
+\include{data/Chapter2}
+
+
+\backmatter % 参考文献之前
+\bibliographystyle{nputhesis}
+\bibliography{refs}
+% 如果参考文献中有&需要展示，应该使用\&
+
+%附录为可选项
+%\Appendix
+\include{data/acknowledge}
+\include{data/achievement}
+\statement
+%\end{CJK} % 保证中文格式的pdf书签
+\end{document}

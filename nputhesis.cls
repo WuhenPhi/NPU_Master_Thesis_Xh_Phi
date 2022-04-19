@@ -246,7 +246,7 @@
       \vspace{1\baselineskip}
       In partial fulfillment of the requirement\\
       For the degree of\\
-      Doctor of \@major@en\\
+      Master of \@major@en\\
       \vspace{4\baselineskip}
       Xi'an P. R. China\\
       \@applydate@en
@@ -370,6 +370,15 @@
 \usepackage{textcomp}
 \usepackage{lipsum}%生成随机段落 占位
 \usepackage{mathrsfs}
+
+%%--Phi
+\usepackage[version=4]{mhchem}  % 引入宏包，版本请参考文档说明。
+\usepackage{chemfig}  %　有机化学包
+\usepackage{amsmath, bm}
+%\usepackage{newtxtext}
+\usepackage{newtxmath}
+
+
 %\setmathfont{XITS Math}%数学字体
 % begin 添加伪代码algorithm -- JieruChen
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
@@ -396,8 +405,13 @@
 %\usepackage[unicode={true},dvipdfm]{hyperref} % 最好保证 hyperref 是最后加载的宏包
 \usepackage[unicode={true}]{hyperref} % 最好保证 hyperref 是最后加载的宏包
 %\usepackage[breaklinks,colorlinks,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
-\newcommand{\supercite}[1]{\textsuperscript{\cite{#1}}}     %引用格式上标 -- JieruChen
-\newcommand{\tcite}[1]{\textsuperscript{\cite{#1}}}         %引用格式上标 -- JieruChen
+%\newcommand{\supercite}[1]{\textsuperscript{\cite{#1}}}     %引用格式上标 -- JieruChen
+%\newcommand{\tcite}[1]{\textsuperscript{\cite{#1}}}         %引用格式上标 -- JieruChen
+\RequirePackage[
+numbers,
+sort&compress,
+super,
+square]{natbib} %参数代表：数字,排序与压缩,上标，方括号--Phi
 \hypersetup{hidelinks}% 取消超链接红色方框	
 %\hypersetup{		%设置方框颜色
 %	colorlinks=true,
