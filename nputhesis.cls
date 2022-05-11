@@ -15,16 +15,19 @@
 
 
 %------------字号行距---------%
+\usepackage{setspace}
 \renewcommand{\songti}{\CJKfontspec{SimSun}}
 \setmainfont{Times New Roman}
 \songti
 \renewcommand{\normalsize}{\zihao{-4}}
 % \linespread{1.5}  % 设置行间距
 \linespread{1.42} % 1.42对应33 34行  % 1.34对应一页36行
+%\setlength{\baselineskip}{28pt}
 
 
 %----------页面大小-------------%
 \RequirePackage{geometry}
+
 \geometry{paperwidth=210mm,paperheight=297mm,%
   left=2.5cm,right=2.5cm,top=2.54cm,bottom=2.54cm}
 \topmargin=-10.4mm
@@ -376,7 +379,7 @@
 \usepackage{chemfig}  %　有机化学包
 \usepackage{amsmath, bm}
 %\usepackage{newtxtext}
-\usepackage{newtxmath}
+%\usepackage{newtxmath}
 
 
 %\setmathfont{XITS Math}%数学字体
