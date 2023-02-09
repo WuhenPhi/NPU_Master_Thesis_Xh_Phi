@@ -15,3 +15,6 @@
 *.aux
 *.gz
 *.synctex(busy）
+*.loc
+*.soc
+*.xdv

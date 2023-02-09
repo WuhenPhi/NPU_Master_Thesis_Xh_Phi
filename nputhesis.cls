@@ -2,7 +2,7 @@
 %% This is file `nputhesis.cls'.
 %%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{nputhesis}[2015/10/23 v0.02 NPU]
+\ProvidesClass{nputhesis}[2022/11/08 NWPU]
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions \relax
@@ -10,14 +10,20 @@
 \RequirePackage[UTF8]{ctexcap} % TODO make utf8 as parameter
 \usepackage{CJKutf8} % 注意要用 CJKutf8 而不是 CJK
 \usepackage{ctex}
-
+\usepackage{fontspec}
+\usepackage{changes}%用于加入删改标记
+%\usepackage{easyReview}
 \RequirePackage{ulem}%下划线强调
 
 
 %------------字号行距---------%
 \usepackage{setspace}
-\renewcommand{\songti}{\CJKfontspec{SimSun}}
+% \renewcommand{\songti}{\CJKfontspec{SimSun}}
+% \renewcommand{\heiti}{\CJKfontfamily{SimHei}}
 \setmainfont{Times New Roman}
+\setCJKmainfont[AutoFakeBold=2.7]{SimSun}
+\newCJKfontfamily{\heitibf}[AutoFakeBold=2.5]{SimHei}
+
 \songti
 \renewcommand{\normalsize}{\zihao{-4}}
 % \linespread{1.5}  % 设置行间距
@@ -36,25 +42,33 @@
 \headsep=5mm
 
 %--------章节编号----------%
-\CTEXsetup[name={第,章}, number={\chinese{chapter}}, % \arabic 表示数字1 2 3 4 ，\chinese 表示汉字一二三四
-  beforeskip={20pt}, afterskip={20pt}]{chapter}
+\CTEXsetup[name={第,章}, number={\arabic{chapter}}, % \arabic 表示数字1 2 3 4 ，\chinese 表示汉字一二三四
+  beforeskip={-4pt}, afterskip={20pt}]{chapter}
 \CTEXsetup[nameformat={\heiti\zihao{3}}]{chapter}
 \CTEXsetup[titleformat={\heiti\zihao{3}}]{chapter}
-\CTEXsetup[format={\heiti\zihao{4}}]{section}
-\CTEXsetup[format={\heiti\zihao{-4}}]{subsection}
+\CTEXsetup[
+format={\heiti\zihao{4}},
+beforeskip={7pt},
+afterskip={0pt}]{section}
+
+\CTEXsetup[
+format={\heiti\zihao{-4}},
+beforeskip={6pt},
+%\baselineskip={20pt},
+afterskip={0pt}]{subsection}
 \RequirePackage{titletoc}
 
 %---------目录设置-----------%
 \def\@contentfont{\songti\zihao{-4}}
 \titlecontents{chapter}[0pt]{\@contentfont}
   {\thecontentslabel\hspace{.5em}}{}  % 在第一个大括号后添加 \bfseries，可以实现目录中章节黑体
-  {\hspace{.5em}\titlerule*{.}\contentspage}
+  {\hspace{0em}\titlerule*{.}\contentspage}
 \titlecontents{section}[15pt]{\@contentfont}
-  {\thecontentslabel\quad}{}
-  {\hspace{.5em}\titlerule*{.}\contentspage}
+  {\hspace{.5em}\thecontentslabel\hspace{.5em}}{}
+  {\hspace{0em}\titlerule*{.}\contentspage}
 \titlecontents{subsection}[30pt]{\@contentfont}
-  {\thecontentslabel\quad}{}
-  {\hspace{.5em}\titlerule*{.}\contentspage}
+  {\quad\thecontentslabel\hspace{.5em}}{}
+  {\hspace{0em}\titlerule*{.}\contentspage}
   
   
   \let\npu@tableofcontents\tableofcontents
@@ -98,13 +112,15 @@
 \def\major{\@ifnextchar[\@@major{\@@major[]}}
 \def\supervisor{\@ifnextchar[\@@supervisor{\@@supervisor[]}}
 \def\applydate{\@ifnextchar[\@@applydate{\@@applydate[]}}
+\def\studycollege{\@ifnextchar[\@@studycollege{\@@studycolledge[]}}
 
 \def\@@title[#1]#2{\def\@title@en{#1}\def\@title{#2}}
 \def\@@author[#1]#2{\def\@author@en{#1}\def\@author{#2}}
 \def\@@major[#1]#2{\def\@major@en{#1}\def\@major{#2}}
 \def\@@supervisor[#1]#2{\def\@supervisor@en{#1}\def\@supervisor{#2}}
 \def\@@applydate[#1]#2{\def\@applydate@en{#1}\def\@applydate{#2}}
-\def\@title{} \def\@author{} \def\@major{} \def\@supervisor{} \def\@applydate{}
+\def\@@studycollege[#1]#2{\def\@studyeollege@en{#1}\def\@studycollege{#2}}
+\def\@title{} \def\@author{} \def\@major{} \def\@supervisor{} \def\@applydate{} \def\@studycollege{}
 
 \def\schoolno#1{\def\@schoolno{#1}}\def\@schoolno{}
 \def\classno#1{\def\@classno{#1}}\def\@classno{}
@@ -117,55 +133,89 @@
 %------------封面------------%
 \def\makeoutercover{
   \begin{titlepage}
+  	
     \linespread{1.25}
     \begin{center}
-      \bf
+      \heiti\zihao{5}
       \hfill
       \newlength{\max@length}
       \settowidth{\max@length}{\npu@schoolno\npu@comma 2000000000}
       \newlength{\name@length}
-      \settowidth{\name@length}{\npu@schoolno}
-      \begin{minipage}{\max@length}
-        \makebox[\name@length][s]{\npu@schoolno}\npu@comma \@schoolno\\
-        \makebox[\name@length][s]{\npu@classno}\npu@comma \@classno\\
-        \makebox[\name@length][s]{\npu@secretlevel}\npu@comma \@secretlevel\\
-        \makebox[\name@length][s]{\npu@authorno}\npu@comma \@authorno\\
+      \settowidth{\name@length}{\npu@schoolno~}
+      \newlength{\name@lengthdown}
+      \setlength{\name@lengthdown}{4.06cm}
+      \begin{minipage}{\textwidth}
+      	\bf
+      	\heitibf
+      	\begin{flushright}%封面右上信息表
+      		\begin{tabular}{ | m{1.9cm}<{\centering}|m{2.2cm}<{\centering}| } 
+      			\hline
+   	  		    \makebox[\name@length][s]{\npu@schoolno}& \@schoolno\\
+   	  		    \hline
+      		    \makebox[\name@length][s]{\npu@classno}& \@classno\\
+      		    \hline
+     		    \makebox[\name@length][s]{\npu@secretlevel}& \@secretlevel\\
+     		    \hline
+      		    \makebox[\name@length][s]{\npu@authorno}& \@authorno\\
+      		    \hline
+      		\end{tabular}
+      	\end{flushright}
+
       \end{minipage}
-      \par\vspace{7cm}
-      \zihao{1}
-      \begin{minipage}[t]{2cm}
-        \hfill\npu@title\\
+      \par\vspace{10cm}
+          	 \heiti\zihao{2}
+      \begin{minipage}[t]{2.34cm}
+      	\begin{center}
+      		      \heitibf\zihao{2}
+        	\makebox[2.34cm][s]{\textbf{\npu@title~~}}
+      	\end{center}
       \end{minipage}
       %\hbox to 2.5cm{\hfill \npu@title}
       \setbox123=\hbox{
-        \begin{minipage}[t]{10cm}
+        \begin{minipage}[t]{12.13cm}
           \begin{center}
-            \@title
+          	 \heitibf\zihao{2}
+          	 \setlength{\baselineskip}{1.55cm}
+          	 \noindent
+            \textbf{\@title}
           \end{center}
         \end{minipage} }
       \setbox124=\hbox{
-        \begin{minipage}[t]{10cm}
+        \begin{minipage}[t]{12.13cm}
           \begin{center}
+          	\setlength{\baselineskip}{1.55cm}
+          	\noindent
             \uline{\hfill\quad\hfill}\\
             \uline{\hfill\quad\hfill}\\
           \end{center}
         \end{minipage} }
       \hskip-1cm
       \copy123\kern-\wd123\box124
-      \par\vspace{4cm}
+      \par\vspace{2cm}
       \zihao{3}
-      \begin{minipage}{5cm}
-        {\kaishu\npu@author} \uline{\hfill\@author\hfill}
+      \songti
+      \begin{minipage}{5.32cm}
+      	\bf
+      	
+        \makebox[5.32cm]{\makebox[1.56cm][c]{\npu@author} \uline{\hfill\textbf{\@author}\hfill}}
       \end{minipage}
-      \par\vspace{3\baselineskip}
+	  \par\vspace{2.45\baselineskip}	
+	  \vspace{-0.05cm}
       \settowidth{\name@length}{\npu@applydate}
-      \begin{minipage}{10cm}
+      \begin{minipage}{14.21cm}
+
+        \setlength{\baselineskip}{1cm}     
+        \zihao{3}
+        \songti  
+        \bf 
         \noindent
-        \makebox[\name@length][s]{\npu@major} \uline{\hfill\@major\hfill} \par
-        \vspace{0.5\baselineskip}
-        \makebox[\name@length][s]{\npu@supervisor} \uline{\hfill\@supervisor\hfill} \par
-        \vspace{0.5\baselineskip}
-        \makebox[\name@length][s]{\npu@applydate} \uline{\hfill\@applydate\hfill} \par
+        \makebox[\name@lengthdown]{\makebox[3.6cm][s]{\npu@major} }\uline{\hfill\@major\hfill} \par
+%        \vspace{0.5\baselineskip}
+        \makebox[\name@lengthdown]{\makebox[3.6cm][s]{\npu@supervisor} }\uline{\hfill\@supervisor\hfill} \par
+%        \vspace{0.5\baselineskip}
+		\makebox[\name@lengthdown]{\makebox[3.6cm][s]{\npu@studycollege}} \uline{\hfill\@studycollege\hfill} \par
+%        \vspace{0.5\baselineskip}
+        \makebox[\name@lengthdown]{\makebox[3.6cm][s]{\npu@applydate} }\uline{\hfill\bf \@applydate\hfill} \par
       \end{minipage}
       \vspace{2\baselineskip}
     \end{center}
@@ -186,9 +236,9 @@
       \divide\name@length by 12
       \multiply\name@length by 17
       \makebox[\name@length][s]{\zihao{1}\npu@degree}
-      \vskip5mm
-      \centerline{\zihao{4}\npu@degreeclass}
-      \vskip5cm
+      \vskip10mm
+%      \centerline{\zihao{4}\npu@degreeclass}
+      \vskip4cm
       \zihao{2}
       \begin{minipage}[t]{2.5cm}
         \hfil\npu@title\npu@comma
@@ -208,19 +258,19 @@
         \end{minipage}}
       \hskip-1cm
       \copy123\kern-\wd123\box124
-      \par\vspace{4cm}
+      \par\vspace{4.6cm}
       \zihao{3}
       \settowidth{\name@length}{\npu@major}
       \begin{minipage}{8cm}
         \noindent
-        \makebox[\name@length][s]{\npu@author}\npu@comma\uline{\hfill\@author\hfill}\par
-        \vspace{1\baselineskip}
         \makebox[\name@length][s]{\npu@major}\npu@comma\uline{\hfill\@major\hfill}\par
-        \vspace{1\baselineskip}
+        \vspace{0.25\baselineskip}
+        \makebox[\name@length][s]{\npu@author}\npu@comma\uline{\hfill\@author\hfill}\par
+        \vspace{0.25\baselineskip}
         \makebox[\name@length][s]{\npu@supervisor}\npu@comma\uline{\hfill\@supervisor\hfill}\par
-        \vspace{1\baselineskip}
+        \vspace{0.25\baselineskip}
       \end{minipage}
-      \vspace{2\baselineskip}
+      \vspace{2.45\baselineskip}
       \par\makebox[30mm]{\@applydate}\hfill
     \end{center}
   \end{titlepage}
@@ -230,28 +280,31 @@
   \begin{titlepage}
     \linespread{1.25}
     \vspace*{1.5cm}
+
     \zihao{3}
     \begin{center}
       {\bf
         %\Large
-        Title: \@title@en \\
+        \zihao{2}Title: \zihao{3}\@title@en \\
+        \vspace{-1\baselineskip}
         \vspace{3\baselineskip}
         \zihao{-3}
         By\\
         \@author@en \\
-        \vspace{1\baselineskip}
+
         Under the Supervision of Professor\\
         \@supervisor@en\\}
+      \vspace{2\baselineskip}
       %\Large
       \vspace{4\baselineskip}
       A Dissertation Submitted to\\
       Northwestern Polytechnical University\\
       \vspace{1\baselineskip}
-      In partial fulfillment of the requirement\\
-      For the degree of\\
+      In Partial Fulfillment of the Requirement\\
+      For the Degree of\\
       Master of \@major@en\\
       \vspace{4\baselineskip}
-      Xi'an P. R. China\\
+      Xi'an, P. R. China\\
       \@applydate@en
     \end{center}
   \end{titlepage}
@@ -288,8 +341,13 @@
 \captionsetup[table]{labelsep=quad}
 \captionsetup[figure]{name={\zihao{5} 图},labelsep=quad}  % 自己加
 \captionsetup[table]{name={\zihao{5} 表},labelsep=quad}  % 自己加
-\setlength{\abovecaptionskip}{10pt}
-\setlength{\belowcaptionskip}{10pt}
+%\setlength{\abovecaptionskip}{2ex}
+%
+%\setlength{\belowcaptionskip}{-3ex}
+\renewcommand{\textfraction}{0.15}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.65}
+\renewcommand{\floatpagefraction}{0.60}
 \renewcommand\thetable{\arabic{chapter}-\arabic{table}}  % \zihao{5}  添加这个字号设置可以实现引用table的时候字体变小
 \renewcommand\thefigure{\arabic{chapter}-\arabic{figure}}
 \renewcommand\theequation{\arabic{chapter}-\arabic{equation}}
@@ -364,12 +422,13 @@
 \usepackage{amsmath} % 多行公式一个编号，且编号在中间，split--JieruChen
 \usepackage{dcolumn}
 \usepackage{amsmath,graphicx}
+
 \usepackage{amsfonts}
 \usepackage[mathscr]{euscript} % 添加花体T  -- JieruChen
 \usepackage{gensymb}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
-\usepackage{amsmath}
+%\usepackage{amsmath}
 \usepackage{textcomp}
 \usepackage{lipsum}%生成随机段落 占位
 \usepackage{mathrsfs}
@@ -377,9 +436,11 @@
 %%--Phi
 \usepackage[version=4]{mhchem}  % 引入宏包，版本请参考文档说明。
 \usepackage{chemfig}  %　有机化学包
-\usepackage{amsmath, bm}
+
+%\usepackage{mathptmx}
+%\usepackage{amsmath, bm}
 %\usepackage{newtxtext}
-%\usepackage{newtxmath}
+\usepackage{newtxmath}
 
 
 %\setmathfont{XITS Math}%数学字体
@@ -389,18 +450,21 @@
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 % Use Output in the format of Algorithm
 % end 添加伪代码algorithm -- JieruChen
+%\renewcommand\theequation{\arabic{section}.\arabic{subsection}.\arabic{equation}}%公式编号/试验-Phi
 
 %-------奇怪的设置出现了-----%-
 \newcommand{\mat}{\textbf}
 \usepackage{verbatim} % 添加多行注释  -- JieruChen
 
 %-----------参考文献----------%
-\let\npu@bibliographystyle\bibliographystyle
-\def\bibliographystyle#1{%
-	\addcontentsline{toc}{chapter}{\bibname}%
-	\npu@bibliographystyle{#1}}
 
-%\def\Reference{\chapter{\npu@reference}}
+\let\npu@bibliographystyle\bibliographystyle
+%\def\bibliographystyle#1{%
+%	%\def\Reference{\chapter{\npu@reference}}
+%	\chapter{\bibname}
+%	%\addcontentsline{toc}{chapter}{\bibname}%
+%	\npu@bibliographystyle{#1}}
+
 \def\Appendix{\chapter{\npu@appendix}}
 \def\Thanks{\chapter{\npu@thanks}}
 \def\Work{\chapter{\npu@work}}
@@ -416,6 +480,7 @@ sort&compress,
 super,
 square]{natbib} %参数代表：数字,排序与压缩,上标，方括号--Phi
 \hypersetup{hidelinks}% 取消超链接红色方框	
+\setlength{\bibsep}{0ex} 
 %\hypersetup{		%设置方框颜色
 %	colorlinks=true,
 %	linkcolor=black
