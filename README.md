@@ -8,14 +8,16 @@
 2023/11/04 更新了论文细节，参考文献格式，增加对双语图片和表格标题的支持
 
 
-CopyRight:基于21届Xh模板修改删减而成, 如果此模板之前来源于其他人的模板，请联系我标明作者信息.
+CopyRight:基于21届Xh模板修改删减而成, 如果此模板之前来源于其他人的模板，或因失误没有标明来源信息，请联系我标明作者信息.
 
 感谢李泽平先生[gbt7714-bibtex-style](https://github.com/zepinglee/gbt7714-bibtex-style)提供的GBT7714-Numerical 参考文件格式模板BST文件，在其上修改了些许参数。
 
-感谢[NWPUMetaphysicsOffice](https://github.com/NWPUMetaphysicsOffice/Yet-Another-LaTeX-Template-for-NPU-Thesis)提供的问项目中的nputhesis-github.bst文件。
+感谢[NWPUMetaphysicsOffice](https://github.com/NWPUMetaphysicsOffice/Yet-Another-LaTeX-Template-for-NPU-Thesis)提供本项目中的nputhesis-github.bst文件，虽然没有正式使用，但仍起到了很大帮助。
 
 具体格式请参考学校的最新规定，不一致的以学校为准.
 作者不承担因使用本模板产生的一切后果，使用即代表同意以上内容.
+
+注意本项目中参考文件（bst)较多，目前用的是GBT7714-numerical，其余文件有感兴趣可以参考，但目前适配的并不好。
 
 注意参考文献的refs.bib中，涉及到中文作者名称的，应采用如
 `author = {邱阳 and 周川冀越 and 孙艳 and 闫康平 and 王贵欣},`
