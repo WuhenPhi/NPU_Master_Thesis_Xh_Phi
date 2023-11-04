@@ -10,7 +10,9 @@
 \RequirePackage[UTF8]{ctexcap} % TODO make utf8 as parameter
 \usepackage{CJKutf8} % 注意要用 CJKutf8 而不是 CJK
 \usepackage{ctex}
-\usepackage{fontspec}
+%\usepackage{newtxmath}
+%\usepackage{fontspec}
+
 \usepackage{changes}%用于加入删改标记
 %\usepackage{easyReview}
 \RequirePackage{ulem}%下划线强调
@@ -21,8 +23,9 @@
 % \renewcommand{\songti}{\CJKfontspec{SimSun}}
 % \renewcommand{\heiti}{\CJKfontfamily{SimHei}}
 \setmainfont{Times New Roman}
-\setCJKmainfont[AutoFakeBold=2.7]{SimSun}
-\newCJKfontfamily{\heitibf}[AutoFakeBold=2.5]{SimHei}
+\setCJKmainfont[AutoFakeBold=2]{SimSun}
+\newCJKfontfamily{\heitibf}[AutoFakeBold=2]{SimHei}
+\newCJKfontfamily{\heitii}{SimHei}
 
 \songti
 \renewcommand{\normalsize}{\zihao{-4}}
@@ -43,9 +46,8 @@
 
 %--------章节编号----------%
 \CTEXsetup[name={第,章}, number={\arabic{chapter}}, % \arabic 表示数字1 2 3 4 ，\chinese 表示汉字一二三四
-  beforeskip={-4pt}, afterskip={20pt}]{chapter}
-\CTEXsetup[nameformat={\heiti\zihao{3}}]{chapter}
-\CTEXsetup[titleformat={\heiti\zihao{3}}]{chapter}
+  beforeskip={-4pt}, afterskip={20pt},nameformat={\heiti\zihao{3}},
+titleformat={\heiti\zihao{3}}]{chapter}
 \CTEXsetup[
 format={\heiti\zihao{4}},
 beforeskip={7pt},
@@ -60,7 +62,7 @@ afterskip={0pt}]{subsection}
 
 %---------目录设置-----------%
 \def\@contentfont{\songti\zihao{-4}}
-\titlecontents{chapter}[0pt]{\@contentfont}
+\titlecontents{chapter}[0pt]{\heiti\zihao{-4}}
   {\thecontentslabel\hspace{.5em}}{}  % 在第一个大括号后添加 \bfseries，可以实现目录中章节黑体
   {\hspace{0em}\titlerule*{.}\contentspage}
 \titlecontents{section}[15pt]{\@contentfont}
@@ -111,6 +113,7 @@ afterskip={0pt}]{subsection}
 \def\author{\@ifnextchar[\@@author{\@@author[]}}
 \def\major{\@ifnextchar[\@@major{\@@major[]}}
 \def\supervisor{\@ifnextchar[\@@supervisor{\@@supervisor[]}}
+\def\supervisorB{\@ifnextchar[\@@supervisorB{\@@supervisorB[]}}
 \def\applydate{\@ifnextchar[\@@applydate{\@@applydate[]}}
 \def\studycollege{\@ifnextchar[\@@studycollege{\@@studycolledge[]}}
 
@@ -261,7 +264,7 @@ afterskip={0pt}]{subsection}
       \par\vspace{4.6cm}
       \zihao{3}
       \settowidth{\name@length}{\npu@major}
-      \begin{minipage}{8cm}
+      \begin{minipage}{9cm}
         \noindent
         \makebox[\name@length][s]{\npu@major}\npu@comma\uline{\hfill\@major\hfill}\par
         \vspace{0.25\baselineskip}
@@ -269,6 +272,8 @@ afterskip={0pt}]{subsection}
         \vspace{0.25\baselineskip}
         \makebox[\name@length][s]{\npu@supervisor}\npu@comma\uline{\hfill\@supervisor\hfill}\par
         \vspace{0.25\baselineskip}
+%        \makebox[\name@length][s]{\npu@supervisorB}\npu@comma\uline{\hfill\@supervisorB\hfill}\par
+%        \vspace{0.25\baselineskip}
       \end{minipage}
       \vspace{2.45\baselineskip}
       \par\makebox[30mm]{\@applydate}\hfill
@@ -292,9 +297,9 @@ afterskip={0pt}]{subsection}
         By\\
         \@author@en \\
 
-        Under the Supervision of Professor\\
+        Under the Supervision of\\
         \@supervisor@en\\}
-      \vspace{2\baselineskip}
+      \vspace{1\baselineskip}
       %\Large
       \vspace{4\baselineskip}
       A Dissertation Submitted to\\
@@ -325,10 +330,13 @@ afterskip={0pt}]{subsection}
 	\chapter{\npu@Abstract}%\addcontentsline{toc}{chapter}{\npu@Abstract}%
 	\newenvironment{Keywords}{%
 		\vspace{2\baselineskip}\par\textbf{\npu@Keywords\npu@comma}}{}}{}
+\newenvironment{innovation}{%
+	\chapter{\npu@innovation}%\addcontentsline{toc}{chapter}{\npu@Abstract}%
+}{}
 	
 
 %-------图表----------%
-\RequirePackage{caption}
+\RequirePackage[justification=centering]{caption}%标题过长居中
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{float}  % 固定图片位置 -- JieruChen
@@ -336,14 +344,18 @@ afterskip={0pt}]{subsection}
 \usepackage{threeparttable}% 引入三线表宏包---JieruChen
 \usepackage{multirow}
 \usepackage{subfigure}
+\usepackage{bicaption}
 
 \captionsetup[figure]{labelsep=quad}
 \captionsetup[table]{labelsep=quad}
 \captionsetup[figure]{name={\zihao{5} 图},labelsep=quad}  % 自己加
 \captionsetup[table]{name={\zihao{5} 表},labelsep=quad}  % 自己加
-%\setlength{\abovecaptionskip}{2ex}
-%
-%\setlength{\belowcaptionskip}{-3ex}
+\captionsetup[figure][bi-second]{name=Fig.} %设置双语言标题
+\captionsetup[table][bi-second]{name=Table}
+
+
+\setlength{\abovecaptionskip}{2ex}
+\setlength{\belowcaptionskip}{-3ex}
 \renewcommand{\textfraction}{0.15}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\bottomfraction}{0.65}
@@ -417,13 +429,17 @@ afterskip={0pt}]{subsection}
 %\end{enumerate}
 
 %------------公式------------%
+%\usepackage{newtxmath}
+%\usepackage{txfonts}
 \usepackage{bm}   %公式加粗  -- JieruChen
-\usepackage{amssymb} %添加定义等号--JieruChen
+%\usepackage{amssymb} %添加定义等号--JieruChen
 \usepackage{amsmath} % 多行公式一个编号，且编号在中间，split--JieruChen
+%\usepackage{wasysym}
 \usepackage{dcolumn}
-\usepackage{amsmath,graphicx}
+%\usepackage{amsmath,graphicx}
 
-\usepackage{amsfonts}
+
+%\usepackage{amsfonts}
 \usepackage[mathscr]{euscript} % 添加花体T  -- JieruChen
 \usepackage{gensymb}
 \usepackage{algorithm}
@@ -432,10 +448,16 @@ afterskip={0pt}]{subsection}
 \usepackage{textcomp}
 \usepackage{lipsum}%生成随机段落 占位
 \usepackage{mathrsfs}
+%\usepackage{mathtime}
+%\usepackage{newtxmath}
+\usepackage{upgreek}
+%\usepackage{txfonts}
+%\usepackage{mathptmx}
+
 
 %%--Phi
-\usepackage[version=4]{mhchem}  % 引入宏包，版本请参考文档说明。
 \usepackage{chemfig}  %　有机化学包
+\usepackage[version=4]{mhchem}  % 引入宏包，版本请参考文档说明。
 
 %\usepackage{mathptmx}
 %\usepackage{amsmath, bm}
@@ -459,21 +481,27 @@ afterskip={0pt}]{subsection}
 %-----------参考文献----------%
 
 \let\npu@bibliographystyle\bibliographystyle
-%\def\bibliographystyle#1{%
-%	%\def\Reference{\chapter{\npu@reference}}
+\def\bibliographystyle#1{%
+	%\def\Reference{\chapter{\npu@reference}}
 %	\chapter{\bibname}
-%	%\addcontentsline{toc}{chapter}{\bibname}%
-%	\npu@bibliographystyle{#1}}
+	%\addcontentsline{toc}{chapter}{\bibname}%
+	\npu@bibliographystyle{#1}}
 
 \def\Appendix{\chapter{\npu@appendix}}
 \def\Thanks{\chapter{\npu@thanks}}
 \def\Work{\chapter{\npu@work}}
+\def\Conclusion{\chapter{\npu@conclusion}}
+%\def\Appendix{\chapter{\npu@appendix}}
+%\def\Thanks{\chapter{\npu@thanks}}
+%\def\Work{\chapter{\npu@work}}
+%\def\Conclusion{\chapter{\npu@conclusion}}
 
 %\usepackage[unicode={true},dvipdfm]{hyperref} % 最好保证 hyperref 是最后加载的宏包
 \usepackage[unicode={true}]{hyperref} % 最好保证 hyperref 是最后加载的宏包
 %\usepackage[breaklinks,colorlinks,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
 %\newcommand{\supercite}[1]{\textsuperscript{\cite{#1}}}     %引用格式上标 -- JieruChen
 %\newcommand{\tcite}[1]{\textsuperscript{\cite{#1}}}         %引用格式上标 -- JieruChen
+\renewcommand\@biblabel[1]{[#1]\hfill}  % 参考文献标号左对齐--PhiChen
 \RequirePackage[
 numbers,
 sort&compress,
@@ -490,13 +518,15 @@ square]{natbib} %参数代表：数字,排序与压缩,上标，方括号--Phi
 \def\statement{
 	\begin{titlepage}
 		\linespread{1.5}
-		\parskip=7pt
+		\parskip=20pt
 		\vspace*{0pt}
 		\songti\zihao{4}
 		\centerline{\bf \npu@schoolname}
 		\centerline{\bf \npu@p@statement}
 		\songti\zihao{5}
+		\parskip=13pt
 		\npu@longp@statement\par
+		\vskip 1cm
 		\npu@a@signature\npu@comma\underline{\qquad\qquad\qquad} \hfill
 		\npu@s@signature\npu@comma\underline{\qquad\qquad\qquad} \par
 		\hskip 3cm \npu@ymd \hfill\hskip 3cm \npu@ymd

@@ -1,16 +1,16 @@
 %%
-%% This is file `gbt7714-numerical.bst',
+%% This is file `variants/thu/thuthesis-numeric.bst',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% gbt7714.dtx  (with options: `2015,numerical')
+%% gbt7714.dtx  (with options: `2015,thu,numerical')
 %% -------------------------------------------------------------------
 %% GB/T 7714 BibTeX Style
 %% https://github.com/zepinglee/gbt7714-bibtex-style
-%% Version: 2022/10/03 v2.1.5
+%% Version: 2022/03/21 v2.1.4
 %% -------------------------------------------------------------------
-%% Copyright (C) 2016--2023 by Zeping Lee <zepinglee AT gmail.com>
+%% Copyright (C) 2016--2022 by Zeping Lee <zepinglee AT gmail.com>
 %% -------------------------------------------------------------------
 %% This file may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3c
@@ -71,7 +71,7 @@ FUNCTION {load.config}
   #1 'sentence.case.title :=
   #0 'link.title :=
   #1 'title.in.journal :=
-  #0 'show.patent.country :=
+  #1 'show.patent.country :=
   #1 'show.mark :=
   #0 'space.before.mark :=
   #1 'show.medium.type :=
@@ -84,9 +84,9 @@ FUNCTION {load.config}
   #0 'only.start.page :=
   #0 'wave.dash.in.pages :=
   #1 'show.urldate :=
-  #0 'show.url :=
-  #0 'show.doi :=
-  #0 'show.preprint :=
+  #1 'show.url :=
+  #1 'show.doi :=
+  #1 'show.preprint :=
   #0 'show.note :=
   #0 'show.english.translation :=
   #1 'end.with.period :=
@@ -877,7 +877,7 @@ FUNCTION {format.volume}
     { volume is.number
         { entry.lang lang.zh =
             { "第 " volume * " 卷" * }
-            { "Vol." volume tie.or.space.connect }
+            { "volume" volume tie.or.space.connect }
           if$
         }
         { volume }
@@ -892,7 +892,7 @@ FUNCTION {format.number}
     { number is.number
         { entry.lang lang.zh =
             { "第 " number * " 册" * }
-            { "No." number tie.or.space.connect }
+            { "number" number tie.or.space.connect }
           if$
         }
         { number }
@@ -1057,7 +1057,7 @@ FUNCTION {get.journal.title}
 }
 
 FUNCTION {check.arxiv.preprint}
-{ #1 #5 substring$ purify$ "l" change.case$ "arxiv" =
+{ #1 #5 substring$ "l" change.case$ "arxiv" =
     { #1 }
     { #0 }
   if$
@@ -1966,10 +1966,6 @@ FUNCTION {preprint}
   format.urldate "" output.after
   output.eprint
   output.url
-  show.preprint not eprint empty$ or
-    'output.doi
-    'skip$
-  if$
   new.block
   format.note output
   fin.entry
