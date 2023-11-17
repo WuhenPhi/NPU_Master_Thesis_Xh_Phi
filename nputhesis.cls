@@ -350,7 +350,7 @@ afterskip={0pt}]{subsection}
 \captionsetup[table]{labelsep=quad}
 \captionsetup[figure]{name={\zihao{5} 图},labelsep=quad}  % 自己加
 \captionsetup[table]{name={\zihao{5} 表},labelsep=quad}  % 自己加
-\captionsetup[figure][bi-second]{name=Fig.} %设置双语言标题
+\captionsetup[figure][bi-second]{name=Figure} %设置双语言标题
 \captionsetup[table][bi-second]{name=Table}
 
 
