@@ -7,7 +7,7 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions \relax
 \LoadClass{book}
-\RequirePackage[UTF8]{ctexcap} % TODO make utf8 as parameter
+\RequirePackage[UTF8]{ctexcap} 
 \usepackage{CJKutf8} % 注意要用 CJKutf8 而不是 CJK
 \usepackage{ctex}
 %\usepackage{newtxmath}
@@ -46,16 +46,16 @@
 
 %--------章节编号----------%
 \CTEXsetup[name={第,章}, number={\arabic{chapter}}, % \arabic 表示数字1 2 3 4 ，\chinese 表示汉字一二三四
-  beforeskip={-4pt}, afterskip={20pt},nameformat={\heiti\zihao{3}},
+  beforeskip={-4pt}, afterskip={16.5pt},nameformat={\heiti\zihao{3}},
 titleformat={\heiti\zihao{3}}]{chapter}
 \CTEXsetup[
 format={\heiti\zihao{4}},
-beforeskip={7pt},
+beforeskip={10pt},
 afterskip={0pt}]{section}
 
 \CTEXsetup[
 format={\heiti\zihao{-4}},
-beforeskip={6pt},
+beforeskip={10pt},
 %\baselineskip={20pt},
 afterskip={0pt}]{subsection}
 \RequirePackage{titletoc}
@@ -74,8 +74,8 @@ afterskip={0pt}]{subsection}
   
   
   \let\npu@tableofcontents\tableofcontents
-  \def\tableofcontents{\npu@tableofcontents%
-  	\addcontentsline{toc}{chapter}{\npu@contents}}
+  \def\tableofcontents{\cleardoublepage\phantomsection\addcontentsline{toc}{chapter}{\npu@contents}%cleardoublepage配合phatom..调整页码问题
+  	\npu@tableofcontents}
 
 %-------------页眉页脚-----------%
 \RequirePackage{fancyhdr}
@@ -338,7 +338,7 @@ afterskip={0pt}]{subsection}
 %-------图表----------%
 \RequirePackage[justification=centering]{caption}%标题过长居中
 \usepackage{graphicx}
-\usepackage{epstopdf}
+%\usepackage{epstopdf}
 \usepackage{float}  % 固定图片位置 -- JieruChen
 \usepackage{booktabs}  %  引入三线表宏包
 \usepackage{threeparttable}% 引入三线表宏包---JieruChen
@@ -484,7 +484,9 @@ afterskip={0pt}]{subsection}
 \def\bibliographystyle#1{%
 	%\def\Reference{\chapter{\npu@reference}}
 %	\chapter{\bibname}
-	%\addcontentsline{toc}{chapter}{\bibname}%
+	\cleardoublepage
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\npu@reference}%
 	\npu@bibliographystyle{#1}}
 
 \def\Appendix{\chapter{\npu@appendix}}
