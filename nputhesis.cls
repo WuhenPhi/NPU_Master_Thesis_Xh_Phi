@@ -87,8 +87,8 @@ afterskip={0pt}]{subsection}
 %    \fi
 %  \fi#1}{}}
 \fancyhf{}
-\fancyhead[EC]{\songti\zihao{-5}\npu@rightmark}
-\fancyhead[OC]{\songti\zihao{-5}\leftmark}
+\fancyhead[EC]{\nouppercase{\songti\zihao{-5}\npu@rightmark}}
+\fancyhead[OC]{\nouppercase{\songti\zihao{-5}\leftmark}}
 \fancyfoot[C]{\songti\zihao{5}\thepage}
 \renewcommand{\headrule}{%
   \hrule width\headwidth height2.8pt \vspace{1pt}%
@@ -104,7 +104,7 @@ afterskip={0pt}]{subsection}
 	%  \Large This Page Intentionally Left Blank!
 	%\end{center}
 	\vspace{\fill}
-	\thispagestyle{empty}
+	\thispagestyle{plain}%奇数页结尾后空白页样式，全白为empty，保留页眉页脚为plain
 	\newpage
 	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
@@ -344,6 +344,8 @@ afterskip={0pt}]{subsection}
 \usepackage{threeparttable}% 引入三线表宏包---JieruChen
 \usepackage{multirow}
 \usepackage{subfigure}
+%\usepackage{movie15}
+
 \usepackage{bicaption}
 
 \captionsetup[figure]{labelsep=quad}
@@ -355,11 +357,13 @@ afterskip={0pt}]{subsection}
 
 
 \setlength{\abovecaptionskip}{2ex}
-\setlength{\belowcaptionskip}{-3ex}
+\setlength{\belowcaptionskip}{-2ex}
 \renewcommand{\textfraction}{0.15}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\bottomfraction}{0.65}
 \renewcommand{\floatpagefraction}{0.60}
+
+%---------图/表/公式/引用编号设置--------%
 \renewcommand\thetable{\arabic{chapter}-\arabic{table}}  % \zihao{5}  添加这个字号设置可以实现引用table的时候字体变小
 \renewcommand\thefigure{\arabic{chapter}-\arabic{figure}}
 \renewcommand\theequation{\arabic{chapter}-\arabic{equation}}
@@ -541,7 +545,7 @@ square]{natbib} %参数代表：数字,排序与压缩,上标，方括号--Phi
 		\centerline{\bf \npu@c@statement}
 		\songti\zihao{5}
 		\npu@longc@statement\par
-		\hskip5.5cm
+		\hskip4cm
 		\hfill\npu@a@signature\npu@comma\underline{\qquad\qquad\qquad}\par
 		\hfill\hskip8.5cm \npu@ymd
 \end{titlepage}}
