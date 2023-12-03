@@ -104,7 +104,7 @@ afterskip={0pt}]{subsection}
 	%  \Large This Page Intentionally Left Blank!
 	%\end{center}
 	\vspace{\fill}
-	\thispagestyle{plain}%奇数页结尾后空白页样式，全白为empty，保留页眉页脚为plain
+	\thispagestyle{empty}%奇数页结尾后空白页样式，全白为empty，保留页眉页脚为plain
 	\newpage
 	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
@@ -323,13 +323,13 @@ afterskip={0pt}]{subsection}
 \newenvironment{abstract}{%
 	\chapter{\npu@abstract}%\addcontentsline{toc}{chapter}{\npu@abstract}%
 	\newenvironment{keywords}{%
-		\vspace{2\baselineskip}\par\textbf{\npu@keywords\npu@comma}}{}
+		\vspace{2\baselineskip}\par\noindent\textbf{\heiti\npu@keywords\npu@comma}}{}
 }{\vfill\zihao{5}\@support}
 
 \newenvironment{Abstract}{%
 	\chapter{\npu@Abstract}%\addcontentsline{toc}{chapter}{\npu@Abstract}%
 	\newenvironment{Keywords}{%
-		\vspace{2\baselineskip}\par\textbf{\npu@Keywords\npu@comma}}{}}{}
+		\vspace{2\baselineskip}\par\noindent\textbf{\npu@Keywords:~}}{}}{}%:~替换了\npu@comma
 \newenvironment{innovation}{%
 	\chapter{\npu@innovation}%\addcontentsline{toc}{chapter}{\npu@Abstract}%
 }{}
@@ -495,7 +495,9 @@ afterskip={0pt}]{subsection}
 
 \def\Appendix{\chapter{\npu@appendix}}
 \def\Thanks{\chapter{\npu@thanks}}
-\def\Work{\chapter{\npu@work}}
+\def\Work{\chapter{\npu@work} 
+	\noindent
+	\zihao{-4}}
 \def\Conclusion{\chapter{\npu@conclusion}}
 %\def\Appendix{\chapter{\npu@appendix}}
 %\def\Thanks{\chapter{\npu@thanks}}
