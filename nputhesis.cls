@@ -74,7 +74,9 @@ afterskip={0pt}]{subsection}
   
   
   \let\npu@tableofcontents\tableofcontents
-  \def\tableofcontents{\cleardoublepage\phantomsection\addcontentsline{toc}{chapter}{\npu@contents}%cleardoublepage配合phatom..调整页码问题
+  \def\tableofcontents{
+%  	\cleardoublepage\phantomsection
+%  	\addcontentsline{toc}{chapter}{\npu@contents}%cleardoublepage配合phatom..调整页码问题
   	\npu@tableofcontents}
 
 %-------------页眉页脚-----------%
@@ -117,10 +119,13 @@ afterskip={0pt}]{subsection}
 \def\applydate{\@ifnextchar[\@@applydate{\@@applydate[]}}
 \def\studycollege{\@ifnextchar[\@@studycollege{\@@studycolledge[]}}
 
+\newif\ifSVB%是否存在副导师
+
 \def\@@title[#1]#2{\def\@title@en{#1}\def\@title{#2}}
 \def\@@author[#1]#2{\def\@author@en{#1}\def\@author{#2}}
 \def\@@major[#1]#2{\def\@major@en{#1}\def\@major{#2}}
 \def\@@supervisor[#1]#2{\def\@supervisor@en{#1}\def\@supervisor{#2}}
+\def\@@supervisorB[#1]#2{\def\@supervisorB@en{#1}\def\@supervisorB{#2}}
 \def\@@applydate[#1]#2{\def\@applydate@en{#1}\def\@applydate{#2}}
 \def\@@studycollege[#1]#2{\def\@studyeollege@en{#1}\def\@studycollege{#2}}
 \def\@title{} \def\@author{} \def\@major{} \def\@supervisor{} \def\@applydate{} \def\@studycollege{}
@@ -272,8 +277,12 @@ afterskip={0pt}]{subsection}
         \vspace{0.25\baselineskip}
         \makebox[\name@length][s]{\npu@supervisor}\npu@comma\uline{\hfill\@supervisor\hfill}\par
         \vspace{0.25\baselineskip}
-%        \makebox[\name@length][s]{\npu@supervisorB}\npu@comma\uline{\hfill\@supervisorB\hfill}\par
-%        \vspace{0.25\baselineskip}
+        \ifSVB
+        	\makebox[\name@length][s]{\npu@supervisorB}\npu@comma\uline{\hfill\@supervisorB\hfill}\par
+        	\vspace{0.25\baselineskip}
+       	\else
+       		\vspace{1.25\baselineskip}
+        \fi
       \end{minipage}
       \vspace{2.45\baselineskip}
       \par\makebox[30mm]{\@applydate}\hfill
@@ -288,18 +297,25 @@ afterskip={0pt}]{subsection}
 
     \zihao{3}
     \begin{center}
-      {\bf
+      {%\bf
         %\Large
-        \zihao{2}Title: \zihao{3}\@title@en \\
+        \zihao{2}\textbf{Title: }\zihao{2}\@title@en \\
         \vspace{-1\baselineskip}
         \vspace{3\baselineskip}
         \zihao{-3}
-        By\\
+        \textbf{By}\\
         \@author@en \\
 
-        Under the Supervision of\\
-        \@supervisor@en\\}
-      \vspace{1\baselineskip}
+        \textbf{Under the Supervision of Professor}\\
+        \@supervisor@en\\
+        \ifSVB
+       		\@supervisorB@en\\
+        \else
+	        \vspace{1\baselineskip}
+        \fi
+        
+        }
+%      \vspace{1\baselineskip}
       %\Large
       \vspace{4\baselineskip}
       A Dissertation Submitted to\\
@@ -323,13 +339,13 @@ afterskip={0pt}]{subsection}
 \newenvironment{abstract}{%
 	\chapter{\npu@abstract}%\addcontentsline{toc}{chapter}{\npu@abstract}%
 	\newenvironment{keywords}{%
-		\vspace{2\baselineskip}\par\noindent\textbf{\heiti\npu@keywords\npu@comma}}{}
+		\vspace{1\baselineskip}\par\noindent\textbf{\heiti\npu@keywords\npu@comma}}{}
 }{\vfill\zihao{5}\@support}
 
 \newenvironment{Abstract}{%
 	\chapter{\npu@Abstract}%\addcontentsline{toc}{chapter}{\npu@Abstract}%
 	\newenvironment{Keywords}{%
-		\vspace{2\baselineskip}\par\noindent\textbf{\npu@Keywords:~}}{}}{}%:~替换了\npu@comma
+		\vspace{1\baselineskip}\par\noindent\textbf{\npu@Keywords:~}}{}}{}%:~替换了\npu@comma
 \newenvironment{innovation}{%
 	\chapter{\npu@innovation}%\addcontentsline{toc}{chapter}{\npu@Abstract}%
 }{}
@@ -437,7 +453,7 @@ afterskip={0pt}]{subsection}
 %\usepackage{txfonts}
 \usepackage{bm}   %公式加粗  -- JieruChen
 %\usepackage{amssymb} %添加定义等号--JieruChen
-\usepackage{amsmath} % 多行公式一个编号，且编号在中间，split--JieruChen
+
 %\usepackage{wasysym}
 \usepackage{dcolumn}
 %\usepackage{amsmath,graphicx}
@@ -457,7 +473,7 @@ afterskip={0pt}]{subsection}
 \usepackage{upgreek}
 %\usepackage{txfonts}
 %\usepackage{mathptmx}
-
+\usepackage{amsmath} % 多行公式一个编号，且编号在中间，split--JieruChen
 
 %%--Phi
 \usepackage{chemfig}  %　有机化学包
@@ -491,6 +507,7 @@ afterskip={0pt}]{subsection}
 	\cleardoublepage
 	\phantomsection
 	\addcontentsline{toc}{chapter}{\npu@reference}%
+	\zihao{5}
 	\npu@bibliographystyle{#1}}
 
 \def\Appendix{\chapter{\npu@appendix}}

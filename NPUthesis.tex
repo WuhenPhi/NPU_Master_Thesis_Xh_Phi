@@ -2,14 +2,15 @@
 %指定编译工具 xelatex
 \documentclass[twoside,cjk,UTF8]{nputhesis}
 %\documentclass[twoside,cjk,UTF8,draft]{nputhesis}%如果编译速度过慢，建议打开draft，可以明显加速因图片过大导致的速度慢，最后版本改回去就可以,打开draft后可能出现目录等处溢出块显示为黑色的情况
-%\setlength{\textfloatsep}{5pt}
+%\special{dvipdfmx:config z 0} %取消PDF压缩，加快速度，最终版本生成的时候最好把这句话注释掉,可能会让pdf体积增加10倍以上
+
 \begin{document}
 \include{data/cover}%中文外封，中英文内封
 \include{data/reviewerlist}%评阅人名单
 %
 \frontmatter%这里会涉及标题，页码等问题，不要取消
-\include{data/abstract}
-\include{data/innovation}
+\include{data/abstract}%中英文摘要
+\include{data/innovation}%创新点
 \tableofcontents
 %
 \mainmatter  % 开始各章节%如果此处include无法成功，将子tex文件的Document的Document setting的 CPconvert的Document Format更改为UTF-8
@@ -22,11 +23,10 @@
 
 \backmatter % 参考文献之前
 \include{data/conclusion}
-\zihao{5}
 \bibliographystyle{gbt7714-numerical}
-\bibliography{data/refs}% 如果参考文献中有&需要展示，应该使用\&
+\bibliography{data/refs}% 如果参考文献中有&需要展示，应该使用\& 参考文献标题如需实词全首字母大写，自行修改bib
 %\Appendix
-\include{data/achievement}
-\include{data/acknowledge}
+\include{data/achievement}%个人成果
+\include{data/acknowledge}%致谢
 \statement
 \end{document}
