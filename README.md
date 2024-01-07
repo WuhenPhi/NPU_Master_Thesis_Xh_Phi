@@ -10,6 +10,8 @@
 
 CopyRight:基于21届Xh模板修改删减而成, 如果此模板之前来源于其他人的模板，或因失误没有标明来源信息，请联系我标明作者信息.
 
+另：本人不太懂GPL这些协议，如果有使用别人的项目要求添加，可以联系我添加，本项目不得商用！
+
 感谢李泽平先生[gbt7714-bibtex-style](https://github.com/zepinglee/gbt7714-bibtex-style)提供的GBT7714-Numerical 参考文件格式模板BST文件，在其上修改了些许参数。
 
 感谢[NWPUMetaphysicsOffice](https://github.com/NWPUMetaphysicsOffice/Yet-Another-LaTeX-Template-for-NPU-Thesis)提供本项目中的nputhesis-github.bst文件，虽然没有正式使用，但仍起到了很大帮助。
