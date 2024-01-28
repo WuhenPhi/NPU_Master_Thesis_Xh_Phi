@@ -46,19 +46,27 @@
 \headsep=5mm
 
 %--------章节编号----------%
-\CTEXsetup[name={第,章}, number={\arabic{chapter}}, % \arabic 表示数字1 2 3 4 ，\chinese 表示汉字一二三四
-  beforeskip={-4pt}, afterskip={16.5pt},nameformat={\heiti\zihao{3}},
-titleformat={\heiti\zihao{3}}]{chapter}
-\CTEXsetup[
-format={\heiti\zihao{4}},
-beforeskip={10pt},
-afterskip={0pt}]{section}
-
-\CTEXsetup[
-format={\heiti\zihao{-4}},
-beforeskip={10pt},
-%\baselineskip={20pt},
-afterskip={0pt}]{subsection}
+\ctexset{
+	chapter={
+		name={第,章}, 
+		number={\arabic{chapter}}, % \arabic 表示数字1 2 3 4 ，\chinese 表示汉字一二三四
+		beforeskip={-4pt}, afterskip={16.5pt},
+		nameformat={\heiti\zihao{3}},
+		titleformat={\heiti\zihao{3}},
+		numberformat={\songti\zihao{3}}
+	},
+		section={
+		format={\heiti\zihao{4}},
+		beforeskip={10pt},
+		afterskip={0pt}
+	},
+	subsection={
+		format={\heiti\zihao{-4}},
+		beforeskip={10pt},
+		%\baselineskip={20pt},
+		afterskip={0pt}
+	}
+}
 \RequirePackage{titletoc}
 
 %---------目录设置-----------%
