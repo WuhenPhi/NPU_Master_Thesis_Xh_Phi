@@ -32,6 +32,7 @@
 % \linespread{1.5}  % 设置行间距
 \linespread{1.42} % 1.42对应33 34行  % 1.34对应一页36行
 %\setlength{\baselineskip}{28pt}
+\parskip=0pt
 
 
 %----------页面大小-------------%
@@ -97,6 +98,7 @@ afterskip={0pt}]{subsection}
   \hrule width\headwidth height0.8pt}
 \fancypagestyle{plain}{\thispagestyle{fancy}}
 \newcommand{\clearpagestyle}{\clearpage{\pagestyle{empty}\cleardoublepage}}
+\newcommand{\clearpagestylefront}{\clearpage{\pagestyle{empty}\cleardoublepagefront}}
 
 %-------左开空白页----------%
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
@@ -106,9 +108,20 @@ afterskip={0pt}]{subsection}
 	%  \Large This Page Intentionally Left Blank!
 	%\end{center}
 	\vspace{\fill}
-	\thispagestyle{empty}%奇数页结尾后空白页样式，全白为empty，保留页眉页脚为plain
+	\thispagestyle{plain}%摘要及之后奇数页结尾后空白页样式，全白为empty，保留页眉页脚为plain
 	\newpage
 	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\def\cleardoublepagefront{\clearpage\if@twoside \ifodd\c@page\else
+	\hbox{}
+	\vspace*{\fill}
+	% \begin{center}
+	%  \Large This Page Intentionally Left Blank!
+	%\end{center}
+	\vspace{\fill}
+	\thispagestyle{empty}%摘要前封面页，奇数页结尾后空白页样式，全白为empty，保留页眉页脚为plain
+	\newpage
+	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+	
 
 %---------define var----------%
 \def\title{\@ifnextchar[\@@title{\@@title[]}}
@@ -228,7 +241,7 @@ afterskip={0pt}]{subsection}
       \vspace{2\baselineskip}
     \end{center}
   \end{titlepage}
-  \clearpagestyle}
+  \clearpagestylefront}
 
 \def\makeinnercover@zh{
   \begin{titlepage}
@@ -249,16 +262,16 @@ afterskip={0pt}]{subsection}
       \vskip4cm
       \zihao{2}
       \begin{minipage}[t]{2.5cm}
-        \hfil\npu@title\npu@comma
+        \hfil\npu@title
       \end{minipage}
       \setbox123=\hbox{
-        \begin{minipage}[t]{10cm}
+        \begin{minipage}[t]{12.13cm}
           \begin{center}
             \@title
           \end{center}
         \end{minipage}}
       \setbox124=\hbox{
-        \begin{minipage}[t]{10cm}
+        \begin{minipage}[t]{12.13cm}
           \begin{center}
             \uline{\hfill\quad\hfill}\\
             \uline{\hfill\quad\hfill}\\
@@ -278,17 +291,17 @@ afterskip={0pt}]{subsection}
         \makebox[\name@length][s]{\npu@supervisor}\npu@comma\uline{\hfill\@supervisor\hfill}\par
         \vspace{0.25\baselineskip}
         \ifSVB
-        	\makebox[\name@length][s]{\npu@supervisorB}\npu@comma\uline{\hfill\@supervisorB\hfill}\par
+       		\makebox[\name@length][s]{\npu@supervisorB}\npu@comma\uline{\hfill\@supervisorB\hfill}\par
         	\vspace{0.25\baselineskip}
-       	\else
-       		\vspace{1.25\baselineskip}
+        \else
+        	\vspace{1.25\baselineskip}
         \fi
       \end{minipage}
       \vspace{2.45\baselineskip}
       \par\makebox[30mm]{\@applydate}\hfill
     \end{center}
   \end{titlepage}
-  \clearpagestyle}
+  \clearpagestylefront}
 
 \def\makeinnercover@en{
   \begin{titlepage}
@@ -309,27 +322,26 @@ afterskip={0pt}]{subsection}
         \textbf{Under the Supervision of Professor}\\
         \@supervisor@en\\
         \ifSVB
-       		\@supervisorB@en\\
+        	\@supervisorB@en\\
         \else
-	        \vspace{1\baselineskip}
+        	\vspace{1\baselineskip}
         \fi
-        
         }
 %      \vspace{1\baselineskip}
       %\Large
-      \vspace{4\baselineskip}
+      \vspace{3\baselineskip}
       A Dissertation Submitted to\\
       Northwestern Polytechnical University\\
       \vspace{1\baselineskip}
       In Partial Fulfillment of the Requirement\\
       For the Degree of\\
       Master of \@major@en\\
-      \vspace{4\baselineskip}
+      \vspace{3\baselineskip}
       Xi'an, P. R. China\\
       \@applydate@en
     \end{center}
   \end{titlepage}
-  \clearpagestyle}
+  \clearpagestylefront}
 
 \def\makecover{\makeoutercover\makeinnercover@zh\makeinnercover@en}
 \let\npu@frontmatter\frontmatter
@@ -339,7 +351,7 @@ afterskip={0pt}]{subsection}
 \newenvironment{abstract}{%
 	\chapter{\npu@abstract}%\addcontentsline{toc}{chapter}{\npu@abstract}%
 	\newenvironment{keywords}{%
-		\vspace{1\baselineskip}\par\noindent\textbf{\heiti\npu@keywords\npu@comma}}{}
+		\vspace{1\baselineskip}\par\noindent{\heiti\npu@keywords\npu@comma}}{}
 }{\vfill\zihao{5}\@support}
 
 \newenvironment{Abstract}{%
@@ -364,16 +376,16 @@ afterskip={0pt}]{subsection}
 
 \usepackage{bicaption}
 
-\captionsetup[figure]{labelsep=quad}
-\captionsetup[table]{labelsep=quad}
+
+%\captionsetup[figure]{labelsep=quad}
+%\captionsetup[table]{labelsep=quad}
 \captionsetup[figure]{name={\zihao{5} 图},labelsep=quad}  % 自己加
 \captionsetup[table]{name={\zihao{5} 表},labelsep=quad}  % 自己加
 \captionsetup[figure][bi-second]{name=Figure} %设置双语言标题
 \captionsetup[table][bi-second]{name=Table}
 
-
-\setlength{\abovecaptionskip}{2ex}
-\setlength{\belowcaptionskip}{-2ex}
+\setlength{\abovecaptionskip}{0.5ex}
+\setlength{\belowcaptionskip}{-2.3 ex}
 \renewcommand{\textfraction}{0.15}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\bottomfraction}{0.65}
@@ -484,7 +496,11 @@ afterskip={0pt}]{subsection}
 %\usepackage{newtxtext}
 \usepackage{newtxmath}
 
-
+%调节间距
+\abovedisplayskip=5pt
+\abovedisplayshortskip=5pt
+\belowdisplayskip=5pt
+\belowdisplayshortskip=5pt
 %\setmathfont{XITS Math}%数学字体
 % begin 添加伪代码algorithm -- JieruChen
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
@@ -542,29 +558,32 @@ square]{natbib} %参数代表：数字,排序与压缩,上标，方括号--Phi
 %-----------声明-------------%
 \def\statement{
 	\begin{titlepage}
-		\linespread{1.5}
-		\parskip=20pt
-		\vspace*{0pt}
+		\linespread{1.91}
+%		\parskip=20pt
+		\vspace*{-17pt}
 		\songti\zihao{4}
 		\centerline{\bf \npu@schoolname}
 		\centerline{\bf \npu@p@statement}
 		\songti\zihao{5}
-		\parskip=13pt
+%		\parskip=13pt
 		\npu@longp@statement\par
-		\vskip 1cm
+		\vskip 0.9cm
+
 		\npu@a@signature\npu@comma\underline{\qquad\qquad\qquad} \hfill
 		\npu@s@signature\npu@comma\underline{\qquad\qquad\qquad} \par
+
 		\hskip 3cm \npu@ymd \hfill\hskip 3cm \npu@ymd
-		\vspace*{30pt}
+		\vspace*{20pt}
 		\hbox to \hsize{\leaders\hbox to 1em{\hss--\hss}\hfill}
 		
-		\vspace*{50pt}
+		\vspace*{0pt}
 		\songti\zihao{4}
 		\centerline{\bf \npu@schoolname}
 		\centerline{\bf \npu@c@statement}
 		\songti\zihao{5}
 		\npu@longc@statement\par
-		\hskip4cm
+		\vspace*{20pt}
+		\hskip 4cm
 		\hfill\npu@a@signature\npu@comma\underline{\qquad\qquad\qquad}\par
 		\hfill\hskip8.5cm \npu@ymd
 \end{titlepage}}
