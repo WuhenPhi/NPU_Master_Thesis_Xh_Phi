@@ -406,8 +406,6 @@
 \AtBeginEnvironment{tabular}{\zihao{5}}   % 全局设表格内字体
 
 
-
-
 % 调整表格大小 30表示高度控制在30mm
 %\resizebox{\textwidth}{30mm}{
 %}
