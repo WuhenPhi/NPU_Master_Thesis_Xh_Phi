@@ -51,11 +51,10 @@
 		name={第,章}, 
 		number={\arabic{chapter}}, % \arabic 表示数字1 2 3 4 ，\chinese 表示汉字一二三四
 		beforeskip={-4pt}, afterskip={16.5pt},
-		nameformat={\heiti\zihao{3}},
-		titleformat={\heiti\zihao{3}},
-		numberformat={\songti\zihao{3}}
+		aftername={~~},
+		format={\centering\heiti\zihao{3}}
 	},
-		section={
+	section={
 		format={\heiti\zihao{4}},
 		beforeskip={10pt},
 		afterskip={0pt}
