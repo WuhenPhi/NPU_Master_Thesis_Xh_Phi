@@ -54,7 +54,7 @@
 		aftername={~~},
 		format={\centering\heiti\zihao{3}}
 	},
-	section={
+		section={
 		format={\heiti\zihao{4}},
 		beforeskip={10pt},
 		afterskip={0pt}
@@ -386,23 +386,33 @@
 
 %\captionsetup[figure]{labelsep=quad}
 %\captionsetup[table]{labelsep=quad}
+
+%\captionsetup{font={stretch=4}}
 \captionsetup[figure]{name={\zihao{5} 图},labelsep=quad}  % 自己加
 \captionsetup[table]{name={\zihao{5} 表},labelsep=quad}  % 自己加
 \captionsetup[figure][bi-second]{name=Figure} %设置双语言标题
 \captionsetup[table][bi-second]{name=Table}
+\renewcommand{\captionfont}{\zihao{5}\setlength{\baselineskip}{18pt} }
+%双语标题间距
+\DeclareBiCaptionSeparator{bisep}{\vspace{2pt}}
+\captionsetup{bi-separator=bisep}
 
-\setlength{\abovecaptionskip}{0.5ex}
+
+\setlength{\abovecaptionskip}{2ex}
 \setlength{\belowcaptionskip}{-2.3 ex}
 \renewcommand{\textfraction}{0.15}
 \renewcommand{\topfraction}{0.85}
 \renewcommand{\bottomfraction}{0.65}
 \renewcommand{\floatpagefraction}{0.60}
 
+
 %---------图/表/公式/引用编号设置--------%
 \renewcommand\thetable{\arabic{chapter}-\arabic{table}}  % \zihao{5}  添加这个字号设置可以实现引用table的时候字体变小
 \renewcommand\thefigure{\arabic{chapter}-\arabic{figure}}
 \renewcommand\theequation{\arabic{chapter}-\arabic{equation}}
 \AtBeginEnvironment{tabular}{\zihao{5}}   % 全局设表格内字体
+
+
 
 
 % 调整表格大小 30表示高度控制在30mm
