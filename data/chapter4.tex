@@ -1,1 +1,23 @@
 \chapter{实验}
+
+\begin{lrbox}{\mysavebox}%
+	\input{data/shixutu}
+\end{lrbox}%
+\noindent{
+\setlength{\remainingheight}{\textheight}
+\addtolength{\remainingheight}{-\ht\strutbox}
+\ifdim\ht\mysavebox>\remainingheight
+\setlength{\myrest}{\ht\mysavebox}%
+\clipbox{0 {\myrest-\remainingheight} 0 {\ht\mysavebox-\myrest}}{\usebox{\mysavebox}}%
+\addtolength{\myrest}{-\remainingheight}%
+\loop\ifdim\myrest>\textheight
+\newpage\par\noindent
+\clipbox{0 {\myrest-\textheight} 0 {\ht\mysavebox-\myrest}}{\usebox{\mysavebox}}%
+\addtolength{\myrest}{-\textheight}%
+\repeat
+\newpage\par\noindent
+\clipbox{0 0 0 {\ht\mysavebox-\myrest}}{\usebox{\mysavebox}}%
+\else
+\usebox{\mysavebox}%
+\fi
+}

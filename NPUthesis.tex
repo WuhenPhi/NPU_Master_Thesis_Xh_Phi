@@ -6,27 +6,12 @@
 \raggedbottom
 \begin{document}
 \include{data/cover}%中文外封，中英文内封
-\include{data/reviewerlist}%评阅人名单
+%\include{data/reviewerlist}%评阅人名单
 %
 \frontmatter%这里会涉及标题，页码等问题，不要取消
-\include{data/abstract}%中英文摘要
-\include{data/innovation}%创新点
 \tableofcontents
 %
 \mainmatter  % 开始各章节%如果此处include无法成功，将子tex文件的Document的Document setting的 CPconvert的Document Format更改为UTF-8
 \include{data/chapter1}
-\include{data/chapter2}
-\include{data/chapter3}
-\include{data/chapter4}
-\include{data/chapter5}
 
-
-\backmatter % 参考文献之前
-\include{data/conclusion}
-\bibliographystyle{gbt7714-numerical}
-\bibliography{data/refs}% 如果参考文献中有&需要展示，应该使用\& 参考文献标题如需实词全首字母大写，自行修改bib
-%\Appendix
-\include{data/achievement}%个人成果
-\include{data/acknowledge}%致谢
-\statement
 \end{document}

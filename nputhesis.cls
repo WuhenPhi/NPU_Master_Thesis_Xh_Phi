@@ -4,7 +4,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{nputhesis}[2022/11/08 NWPU]
 
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessOptions \relax
 \LoadClass{book}
 \RequirePackage[UTF8]{ctexcap} 
@@ -47,20 +47,14 @@
 
 %--------章节编号----------%
 \ctexset{
-	chapter={
-		name={第,章}, 
-		number={\arabic{chapter}}, % \arabic 表示数字1 2 3 4 ，\chinese 表示汉字一二三四
-		beforeskip={-4pt}, afterskip={16.5pt},
-		aftername={~~},
-		format={\centering\heiti\zihao{3}}
-	},
 		section={
-		format={\heiti\zihao{4}},
+        number={\arabic{section}}, % \arabic 表示数字1 2 3 4 ，\chinese 表示汉字一二三四
+		format={\heitii\zihao{3}},
 		beforeskip={10pt},
 		afterskip={0pt}
 	},
 	subsection={
-		format={\heiti\zihao{-4}},
+		format={\heitii\zihao{-4}},
 		beforeskip={10pt},
 		%\baselineskip={20pt},
 		afterskip={0pt}
@@ -70,9 +64,6 @@
 
 %---------目录设置-----------%
 \def\@contentfont{\songti\zihao{-4}}
-\titlecontents{chapter}[0pt]{\heiti\zihao{-4}}
-  {\thecontentslabel\hspace{.5em}}{}  % 在第一个大括号后添加 \bfseries，可以实现目录中章节黑体
-  {\hspace{0em}\titlerule*{.}\contentspage}
 \titlecontents{section}[15pt]{\@contentfont}
   {\hspace{.5em}\thecontentslabel\hspace{.5em}}{}
   {\hspace{0em}\titlerule*{.}\contentspage}
@@ -97,37 +88,19 @@
 %    \fi
 %  \fi#1}{}}
 \fancyhf{}
-\fancyhead[EC]{\nouppercase{\songti\zihao{-5}\npu@rightmark}}
-\fancyhead[OC]{\nouppercase{\songti\zihao{-5}\leftmark}}
+\fancyhead[EC]{\nouppercase{\songti\zihao{-5}\@title}}
+\fancyhead[OC]{\nouppercase{\songti\zihao{-5}\@title}}
 \fancyfoot[C]{\songti\zihao{5}\thepage}
-\renewcommand{\headrule}{%
-  \hrule width\headwidth height2.8pt \vspace{1pt}%
-  \hrule width\headwidth height0.8pt}
+%\renewcommand{\headrule}{%
+%  \hrule width\headwidth height2.8pt \vspace{1pt}%
+%  \hrule width\headwidth height0.8pt}
 \fancypagestyle{plain}{\thispagestyle{fancy}}
 \newcommand{\clearpagestyle}{\clearpage{\pagestyle{empty}\cleardoublepage}}
 \newcommand{\clearpagestylefront}{\clearpage{\pagestyle{empty}\cleardoublepagefront}}
 
 %-------左开空白页----------%
-\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
-	\hbox{}
-	\vspace*{\fill}
-	% \begin{center}
-	%  \Large This Page Intentionally Left Blank!
-	%\end{center}
-	\vspace{\fill}
-	\thispagestyle{plain}%摘要及之后奇数页结尾后空白页样式，全白为empty，保留页眉页脚为plain
-	\newpage
-	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
-\def\cleardoublepagefront{\clearpage\if@twoside \ifodd\c@page\else
-	\hbox{}
-	\vspace*{\fill}
-	% \begin{center}
-	%  \Large This Page Intentionally Left Blank!
-	%\end{center}
-	\vspace{\fill}
-	\thispagestyle{empty}%摘要前封面页，奇数页结尾后空白页样式，全白为empty，保留页眉页脚为plain
-	\newpage
-	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\def\cleardoublepage{}
+\def\cleardoublepagefront{}
 	
 
 %---------define var----------%
@@ -158,10 +131,11 @@
 
 
 
+
 %------------封面------------%
 \def\makeoutercover{
   \begin{titlepage}
-  	
+  	\setcounter{page}{1}
     \linespread{1.25}
     \begin{center}
       \heiti\zihao{5}
@@ -350,7 +324,7 @@
   \end{titlepage}
   \clearpagestylefront}
 
-\def\makecover{\makeoutercover\makeinnercover@zh\makeinnercover@en}
+\def\makecover{\makeoutercover}
 \let\npu@frontmatter\frontmatter
 \def\frontmatter{\npu@frontmatter\pagenumbering{Roman}}
 
@@ -524,6 +498,43 @@
 % Use Output in the format of Algorithm
 % end 添加伪代码algorithm -- JieruChen
 %\renewcommand\theequation{\arabic{section}.\arabic{subsection}.\arabic{equation}}%公式编号/试验-Phi
+%-----时序图跨页----%
+\usepackage{tikz}
+\usepackage{adjustbox}
+
+\newsavebox{\mysavebox}
+\newlength{\myrest}
+
+\newlength{\remainingheight}
+
+\newenvironment{puml}{
+	\par
+	\par
+	\noindent
+	\begin{lrbox}{\mysavebox}
+	}{\end{lrbox}
+	\noindent
+	\setlength{\remainingheight}{\textheight}
+	\addtolength{\remainingheight}{-\ht\strutbox}
+	\addtolength{\remainingheight}{-3\baselineskip}
+	\ifdim\ht\mysavebox>\remainingheight
+		\setlength{\myrest}{\ht\mysavebox}%
+		\clipbox{0 {\myrest-\remainingheight} 0 {\ht\mysavebox-\myrest}}{\usebox{\mysavebox}}%
+		\addtolength{\myrest}{-\remainingheight}%
+		\loop\ifdim\myrest>\textheight
+			\newpage\par\noindent
+			\clipbox{0 {\myrest-\textheight} 0 {\ht\mysavebox-\myrest}}{\usebox{\mysavebox}}%
+			\addtolength{\myrest}{-\textheight}%
+		\repeat
+		\newpage\par\noindent
+		\clipbox{0 0 0 {\ht\mysavebox-\myrest}}{\usebox{\mysavebox}}%
+		\else
+		\usebox{\mysavebox}%
+	\fi
+	\par
+	\vspace{0.5\baselineskip}
+}
+
 
 %-------奇怪的设置出现了-----%-
 \newcommand{\mat}{\textbf}

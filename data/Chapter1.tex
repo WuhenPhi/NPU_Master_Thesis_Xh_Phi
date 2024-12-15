@@ -1,35 +1,11 @@
-\chapter{论文模板介绍}
+\newpage
+\section{一些tikz}
 
-\section{简介}
-本论文模板用于撰写西北工业大学研究生学位论文，基于西北工业大学材料学院提供的模板编写，项目链接 \href{https://github.com/WuhenPhi/NPU_Master_Thesis_Xh_Phi}{NPU\_Master\_Thesis\_Xh\_Phi
-} ，理论上适用于材料学院硕士和博士，其他学院可能会有不同要求，可以按需求更改。
-
-\section{模板结构}
-本论文模板采用模块化结构，主文档为 /NPUthesis.tex，所有论文结构均包含在该文件当中，子文档按照所需顺序采用命令包含进入，列表如下：
-\begin{itemize}[leftmargin=*]
-	\item 模板文件：/nputhesis.cls，其中包括文档字体字号，页眉页脚，章节编号，封面格式定义，图片/表格编号，参考文献，声明页定义等，有能力可以自行更改。
-	\item 配置文件: /npuphd.cfg，包含论文模板中的固定文字部分，在cls文件中 导入使用，例如“西北工业大学硕士学位论文”、“题目”、“学科专业”等字样，如要更改为“博士”，或其他情况，可在此自行更改。
-	\item /data 文件夹中包含论文中的内容部分列表如下：
-	\begin{itemize}[leftmargin=*]
-		\item /data/cover.tex 封面信息填写及 \textbackslash makecover 命令用于生成三个封面，通常[]中为英文信息，\{\}中为中文信息，\textbackslash SVB... 命令为控制封面中的副导师信息存在与否。
-		\item /data/reviewerlist.tex 为论文评阅人名单，填写时只需在对应表格位置更改即可。
-		\item /data/abstract.tex 为中英文摘要，填写时在abstract 环境中填写中文摘要，在keywords 环境中填写中文关键词，时在Abstract 环境中填写英文摘要，在Keywords 环境中填写英文关键词，基金信息在\textbackslash support中填写
-		\item /data/innovation.tex 为创新点，直接填写即可，编号手动，或自己调整\textbackslash itemize 格式。
-		\item /data/chapterX.tex 根据数字不同分别为各章内容，每章中存在 \textbackslash chapter、\textbackslash section和\par \textbackslash subsection 三级，分别对应三级标题，各章内部无区别，可以随意调整顺序。
-		\item /data/conclusion.tex 中为结论部分格式与章相同，同创新点类似，编号手动。
-		\item /data/refs.bib 为论文中所有参考文献bibtex的合集。
-		\item /data/achievement.tex 为成果页，论文和专利分别为两个列表，直接填写即可，如有参加会议等项目自行添加。
-		\item /data/acknowledge.tex 为致谢页，直接填写内容即可。
-	\end{itemize}
-	\item /figure 文件夹下为各个章节的图片，建议图片分章放置以便管理，将每章图片放入对应文件夹即可，不建立子文件夹亦可，但图片数量变多时会比较杂乱。
-	\item \textbackslash bibliographystyle{gbt7714-numerical} 和\textbackslash bibliography{data/refs} 分别用于设置参考文献格式为/gbt7714-numberical.bst和参考文件源文件为/data/refs.bib，参考文献格式来源于\par\href{https://github.com/zepinglee/gbt7714-bibtex-style}{gbt7714bibtex-style}项目，在其上做了部分更改如作者姓名缩写部分等。
-	\item \textbackslash statement直接生成声明页，具体内容在npuphd.cfg中更改。
-	\item \textbackslash frontmatter、\textbackslash mainmatter和\textbackslash backmatter 用于分割文档，会影响页码和章节编号等问题，不建议更改。
-\end{itemize}
-
-\section{免责声明}
-{
-\bfseries
-学位论文中的具体格式请参考学校的最新规定，不一致的以学校为准
-
-作者不承担因使用本模板产生的一切后果，使用即代表同意以上内容}
+aaa
+\begin{puml}
+	\input{data/shixutu}
+\end{puml}%
+\section{2}
+\begin{puml}
+	\input{data/shixutu}
+\end{puml}%
